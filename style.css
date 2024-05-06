@@ -2,21 +2,14 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-
-#layer1, #layer2, #layer3, #layer4, #player, #rival1, #rival2, #smokeExplosion, #fireExplosion {
+  }
+  
+  #layer1, #layer2, #layer3, #layer4, #player, #rival1, #rival2, #smokeExplosion, #fireExplosion, #reset {
     display: none;
-}
+  }
 
-#header {
-    position: absolute;
-    top: 20px; /* Ajusta la distancia desde la parte superior según sea necesario */
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1; /* Asegura que el encabezado esté encima del lienzo */
-}
-
-#canvas1 {
+  
+  #canvas1 {
     border: 5px solid black;
     position: absolute;
     top: 50%;
@@ -25,9 +18,10 @@
     max-width: 100%;
     max-height: 100%;
     background-color: rgb(111, 111, 245);
-}
-
-#controls {
+    z-index: 1; 
+  }
+  
+  #controls {
     position: absolute;
     bottom: 20px;
     left: 50%;
@@ -35,9 +29,30 @@
     display: flex;
     justify-content: center;
     align-items: center;
-}
+  }
+  
+  #reset {
+    background-color: #f04646; 
+    color: white;
+    font-size: 24px;
+    padding: 10px 50px;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+    transform: translateX(-50%);
+    z-index: 2;
+    position: fixed;
+    top: 20%; 
+    transform: translate(-50%, -50%); 
+    align-items: center;
+     
+  }
 
-#controls button {
+
+  #controls button {
     margin: 0 10px;
     font-size: 24px;
     padding: 10px 50px;
@@ -50,39 +65,40 @@
     border-radius: 12px;
     cursor: pointer;
     transition-duration: 0.4s;
-}
-
-#controls button:hover {
-    background-color:#46b2f0; /* Darker Green */
-}
-
-/* Ocultar los botones en pantallas más grandes */
-#controls button {
+  }
+  
+  #controls button:hover {
+    background-color:#46b2f0; 
+  }
+  
+  /* Ocultar los botones en pantallas más grandes */
+  #controls button {
     display: none;
     
-}
-
-/* Mostrar los botones solo en pantallas más pequeñas (móviles) */
-@media only screen and (max-width: 768px) {
+  }
+  
+  /* Mostrar los botones solo en pantallas más pequeñas (móviles) */
+  @media only screen and (max-width: 768px) {
     #controls button {
-        display: inline-block;
+      display: inline-block;
     }
-}
-
-
-
-
-/* Media query para dispositivos móviles */
-@media only screen and (max-width: 600px) {
+  }
+  
+  
+  
+  
+  /* Media query para dispositivos móviles */
+  @media only screen and (max-width: 600px) {
     #header {
-        top: 10px;
+      top: 10px;
     }
-
+  
     #canvas1 {
-        transform: translate(-50%, -30%);
+      transform: translate(-50%, -30%);
     }
-
+  
     #controls {
-        bottom: 10px;
+      bottom: 10px;
     }
-}
+  }
+  

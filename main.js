@@ -280,13 +280,14 @@ window.addEventListener('load', function(){
             this.gameTime = 0;
             this.timeLimit = 90000;
             this.speed = 3;
-            this.speedIncreaseInterval = 10000; // Intervalo de 30 segundos
+            this.speedIncreaseInterval = 10000; // Intervalo de 10 segundos
             this.speedIncreaseAmount = 0.5; // Cantidad de aumento de velocidad
             this.speedIncreaseTimer = 0; 
             this.debug = false;
             this.upButtonPressed = false; 
             this.downButtonPressed = false; 
-           
+            this.showResetButton = false;
+            
         }
         update(deltaTime){
             if (!this.gameOver) this.gameTime += deltaTime;
@@ -317,7 +318,15 @@ window.addEventListener('load', function(){
                 }
             });
 
-
+            if (this.gameTime > this.timeLimit) {
+                this.gameOver = true;
+                this.endGame(); // Llama a endGame aquí
+              }
+            
+              if (this.score >= this.winningScore) {
+                this.gameOver = true;
+                this.endGame(); // Llama a endGame aquí
+              }
 
 
             
@@ -329,7 +338,7 @@ window.addEventListener('load', function(){
                 this.enemyTimer += deltaTime;
             }
         }
-        
+
         draw(context){
             this.background.draw(context);
             this.player.draw(context); // Dibuja al jugador
@@ -340,7 +349,17 @@ window.addEventListener('load', function(){
             this.explosions.forEach(explosion => {
                 explosion.draw(context); // Dibuja cada explosión
             });
+            if (this.showResetButton){
+                const resetDiv = document.getElementById('reset');
+                resetDiv.style.display = 'block';
+            }
         }
+
+        endGame() {
+            this.showResetButton = true;
+            const resetButton = document.getElementById('reset');
+            resetButton.style.display = 'block'; 
+          }
         addEnemy(){
             const randomize = Math.random();
             if( randomize < 0.5 ) this.enemies.push (new Rival1(this));
@@ -414,6 +433,20 @@ window.addEventListener('load', function(){
         game.downButtonPressed = false;
     });
 
+    document.getElementById("reset").addEventListener("click", function() {
+        // Restablecer el juego a su estado inicial
+        game.gameOver = false;
+        game.score = 0;
+        game.gameTime = 0;
+        game.speed = 3;
+        game.enemies = [];
+        game.explosions = [];
+        game.showResetButton = false;
+    
+        // Ocultar el botón de reset
+        const resetDiv = document.getElementById('reset');
+        resetDiv.style.display = 'none';
+    });
     
     animate(0);
     
